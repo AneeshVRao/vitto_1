@@ -43,7 +43,7 @@ const MODULES = [
         <circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
       </svg>
     ),
-    title: 'ML Underwriting Model',
+    title: 'ML Model',
     desc: 'Domain-trained models that score risk across bureau thin-files, cash-flow patterns, and behavioural signals.',
     href: '/platform#ml',
   },
@@ -721,11 +721,42 @@ function CTABanner() {
 function Footer() {
   const [email, setEmail] = useState('');
 
-  const cols = {
-    Pages: ['Home', 'Platform', 'Automation', 'Collections', 'Agentic AI', 'About'],
-    Partners: ['Banks', 'NBFCs', 'MFIs', 'API Partners', 'Integrations'],
-    Platform: ['LOS', 'LMS', 'Collections', 'KYC & Fraud', 'Agentic AI', 'API Docs'],
-  };
+  const cols = [
+    {
+      heading: 'Pages',
+      links: [
+        { label: 'Home', to: '/' },
+        { label: 'Platform', to: '/platform' },
+        { label: 'Automation', to: '/automation' },
+        { label: 'Collections', to: '/collections' },
+        { label: 'Agentic AI', to: '/agentic' },
+        { label: 'API', to: '/api' },
+        { label: 'About', to: '/about' },
+        { label: 'Contact', to: '/contact' },
+      ],
+    },
+    {
+      heading: 'Partners',
+      links: [
+        { label: 'Banks', to: '/about' },
+        { label: 'NBFCs', to: '/about' },
+        { label: 'MFIs', to: '/about' },
+        { label: 'API Partners', to: '/api' },
+        { label: 'Integrations', to: '/api' },
+      ],
+    },
+    {
+      heading: 'Platform',
+      links: [
+        { label: 'LOS', to: '/automation' },
+        { label: 'LMS', to: '/automation' },
+        { label: 'Collections', to: '/collections' },
+        { label: 'KYC & Fraud', to: '/platform' },
+        { label: 'Agentic AI', to: '/agentic' },
+        { label: 'API Docs', to: '/api' },
+      ],
+    },
+  ];
 
   return (
     <footer style={{ background: '#0D0D1A', borderTop: '1px solid rgba(255,255,255,0.06)', padding: '64px 24px 32px' }}>
@@ -778,23 +809,25 @@ function Footer() {
           </div>
 
           {/* Nav columns */}
-          {Object.entries(cols).map(([heading, links]) => (
-            <div key={heading}>
+          {cols.map((col) => (
+            <div key={col.heading}>
               <h4 style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: 13, color: '#F5F5F7', letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: 20 }}>
-                {heading}
+                {col.heading}
               </h4>
               <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {links.map(link => (
-                  <li key={link}>
-                    <a href="#" style={{
-                      fontFamily: 'DM Sans, sans-serif', fontSize: 13.5, color: '#4B5563', textDecoration: 'none',
-                      transition: 'color 0.2s',
-                    }}
-                    onMouseEnter={e => e.target.style.color = '#9CA3AF'}
-                    onMouseLeave={e => e.target.style.color = '#4B5563'}
+                {col.links.map((item) => (
+                  <li key={item.label}>
+                    <Link
+                      to={item.to}
+                      style={{
+                        fontFamily: 'DM Sans, sans-serif', fontSize: 13.5, color: '#4B5563', textDecoration: 'none',
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseEnter={(e) => { e.target.style.color = '#9CA3AF'; }}
+                      onMouseLeave={(e) => { e.target.style.color = '#4B5563'; }}
                     >
-                      {link}
-                    </a>
+                      {item.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -808,17 +841,38 @@ function Footer() {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16,
         }}>
           <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: '#374151' }}>
-            © 2025 Vitto Technologies Pvt. Ltd. All rights reserved.
+            © 2026 Vitto Technologies Pvt. Ltd. All rights reserved.
           </span>
-          <div style={{ display: 'flex', gap: 24 }}>
-            {['Privacy Policy', 'Terms of Service', 'Security'].map(link => (
-              <a key={link} href="#" style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: '#374151', textDecoration: 'none', transition: 'color 0.2s' }}
-                onMouseEnter={e => e.target.style.color = '#6B7280'}
-                onMouseLeave={e => e.target.style.color = '#374151'}
-              >
-                {link}
-              </a>
-            ))}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 12 }} aria-label="Social links">
+              {[
+                { label: 'LinkedIn', href: '#' },
+                { label: 'X', href: '#' },
+              ].map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  style={{
+                    fontFamily: 'DM Sans, sans-serif', fontSize: 12, fontWeight: 600, color: '#4B5563',
+                    textDecoration: 'none', transition: 'color 0.2s',
+                  }}
+                  onMouseEnter={(e) => { e.target.style.color = '#9CA3AF'; }}
+                  onMouseLeave={(e) => { e.target.style.color = '#4B5563'; }}
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
+            <div style={{ display: 'flex', gap: 24 }}>
+              {['Privacy Policy', 'Terms of Service', 'Security'].map(link => (
+                <a key={link} href="#" style={{ fontFamily: 'DM Sans, sans-serif', fontSize: 12, color: '#374151', textDecoration: 'none', transition: 'color 0.2s' }}
+                  onMouseEnter={e => e.target.style.color = '#6B7280'}
+                  onMouseLeave={e => e.target.style.color = '#374151'}
+                >
+                  {link}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

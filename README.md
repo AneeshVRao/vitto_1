@@ -53,6 +53,7 @@ vitto/
 │   └── package.json
 │
 └── docs/
+    ├── deliverables.md             # Checklist: all assignment items + your manual steps
     ├── sitemap.md                  # Deliverable 1 — Sitemap & strategy
     ├── article.md                  # Deliverable 5 — Thought leadership article
     ├── writeup.md                  # Submission write-up

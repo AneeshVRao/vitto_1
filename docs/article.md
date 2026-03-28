@@ -38,17 +38,17 @@ This architectural difference is not recoverable by incremental investment. You 
 
 Institutions that chose to retrofit AI in the early 2020s are now confronting a second wave of costs they did not model at the time.
 
-First, there is the **model maintenance burden**. Retrofitted AI vendors offer a model service, not a model platform. When your portfolio composition shifts — new borrower segments, new product variants, macro headwinds — the model requires revalidation and often retraining by the vendor. Each cycle involves procurement delays, data transfer overhead, and a governance process that takes months to complete. By the time the updated model is live, the portfolio has shifted again.
+First, there is the **model maintenance burden**. Retrofitted AI vendors offer a model service, not a model platform. When your portfolio composition shifts — new borrower segments, new product variants, macro headwinds — the model requires revalidation and often retraining by the vendor. Each cycle involves procurement delays, data transfer overhead, and a governance process that takes months to complete.
 
 Second, there is the **integration debt**. Every point integration between a legacy LOS and an external AI service is a maintenance liability. API versioning changes, data schema updates, vendor pricing renegotiations, and compliance requirements create a steady-state operational overhead that is invisible in the initial procurement decision.
 
-Third, there is **explainability liability**. RBI's guidance on model risk management and Fair Practice Code compliance requires that every credit decision be explainable at an individual application level. A generic ML score with four reason codes does not meet this standard in a robust way. Institutions are increasingly finding that their retrofitted AI cannot produce the decision-level documentation required for regulatory examination, internal audit, or borrower communication.
+Third, there is **explainability liability**. RBI guidance requires application-level explainability. A generic ML score with four reason codes is fragile under scrutiny — and retrofitted stacks often cannot produce the documentation regulators and auditors expect.
 
 ## Why Future-Ready Institutions Must Rearchitect
 
 The lending landscape is not going to simplify. Borrower profiles are becoming more heterogeneous — gig economy income, co-lending structures, MSME thin files. Regulatory requirements on explainability and fairness are becoming more specific. The economics of collections demand predictive intelligence that operates at a granularity that batch-processed aging buckets cannot provide.
 
-None of this is addressable by applying more AI to the top of a system that was not designed for it. The constraint is not the sophistication of the model. The constraint is the architecture that determines what data the model can see, how quickly it can respond, and how its decisions can be explained and audited.
+None of this is fixed by bolting on more AI. The constraint is architecture: what data the model sees, how fast it responds, and how decisions are explained and audited.
 
 Rearchitecting is a significant decision. It is not the right answer for every institution on every timeline. But the institutions that are making this investment now are building a data and decisioning advantage that compounds over time. The ones deferring it are accumulating technical debt and operational risk that becomes progressively harder to resolve.
 

@@ -41,7 +41,7 @@ Five operational layers, each with a description and expandable module cards. Th
 
 ### Deliverable 5 — Thought Leadership Article
 
-"Retrofit AI vs AI-Native Infrastructure in BFSI" — 780 words covering architecture comparison, the data layer problem, long-term cost implications, and the case for rearchitecting. Written for an NBFC CTO audience.
+"Retrofit AI vs AI-Native Infrastructure in BFSI" — ~832 words (within the 600–900 requirement) covering architecture comparison, the data layer problem, long-term cost implications, and the case for rearchitecting. Full text: `docs/article.md`.
 
 ### Deliverable 6 — Sign-Up Flow (Frontend + Backend)
 
@@ -65,58 +65,12 @@ The solution was to lead with the decision-maker's actual concern ("My team want
 
 ## One Thing I'd Do Differently With More Time
 
-I would build the **Collections Intelligence page** as a fully separate, persona-driven page. Collections is the entry point for most NBFC conversations — "our NPA is climbing and our collections team is overwhelmed" is a more immediate pain than "we need to modernise our LOS." A dedicated page that opens with a portfolio stress scenario rather than a feature list would convert that audience significantly better.
+I would add the **optional lifecycle diagram** (SVG or React) from lead acquisition through closure with explicit AI decision nodes — it is the fastest way for a board to see where Vitto sits relative to a transaction-only LOS.
 
-I'd also integrate a real OTP provider (MSG91 or SendGrid) and build the Calendly embed on the contact page — the two pieces that currently require manual follow-up to test end-to-end.
+I would also integrate a **production OTP provider** (MSG91 / SendGrid), a **Calendly** embed on the contact page, and wire the demo form to a CRM webhook so nothing relies on manual inbox triage.
 
 ---
 
 ## Thought Leadership Article
 
-*(See `docs/article.md` for the full text, reproduced below)*
-
----
-
-### Retrofit AI vs AI-Native Infrastructure in BFSI
-
-The conversation about artificial intelligence in financial services has become unavoidable. Every vendor in the lending ecosystem now features AI prominently in its positioning. The problem is that "AI" has become a category that means almost nothing without examining the architecture underneath it.
-
-There are two fundamentally different things being sold as AI in BFSI today. One is genuinely new. The other is a repackaging of existing systems with a machine learning layer bolted on after the fact. The difference between them is not visible in a product brochure — but it is very visible in credit decision quality, operational efficiency, and long-term cost of ownership.
-
-**The Two Approaches**
-
-Retrofit AI starts with a core platform built for a world of rules and batch processing. When the AI mandate arrived, the organisation integrated a scoring vendor at a specific point in the workflow. The model receives the data available at that point, scores the application, and returns a result. The rest of the system processes the result as it would a rule output.
-
-AI-Native Infrastructure is designed with machine learning as the substrate. Data ingestion, feature engineering, model inference, policy application, and decision logging are co-designed components sharing a unified data layer. The model is not called at a single point; it informs every stage of the lifecycle.
-
-| Dimension | Retrofit AI | AI-Native (Vitto) |
-|---|---|---|
-| Architecture | ML appended to legacy core | ML is the core |
-| Data access | Point-in-time, siloed | Continuous, unified |
-| Model updates | Manual, infrequent | Continuous retraining |
-| Explainability | Score + generic reason code | Feature-level attribution |
-| Policy changes | Dev sprint required | No-code configuration |
-
-**The Data Layer Problem**
-
-The most consequential difference is what data the model can see. A retrofitted AI model operates at the completed application form — bureau scores, declared income, uploaded documents. The rest of the platform's data is locked inside other systems with no real-time bridge.
-
-An AI-native platform is built around a shared feature store. A borrower's repayment behaviour on a previous loan is a live signal in the underwriting model for a new product. A missed payment this week adjusts the collections agent's allotment order today — not at the next batch run.
-
-This architectural difference is not recoverable by incremental investment.
-
-**The Long-Term Cost Equation**
-
-Institutions that chose to retrofit AI in the early 2020s are confronting three costs they did not model: model maintenance burden (retraining cycles require vendor procurement loops measured in months), integration debt (every API bridge between legacy LOS and an AI service is a maintenance liability), and explainability liability (RBI's model risk management guidance requires decision-level documentation that generic reason codes cannot satisfy).
-
-**Why Future-Ready Institutions Must Rearchitect**
-
-Borrower profiles are becoming more heterogeneous. Regulatory requirements on explainability are becoming more specific. The economics of collections demand predictive intelligence that batch-processed aging buckets cannot provide.
-
-None of this is addressable by applying more AI to the top of a system not designed for it. The constraint is not model sophistication. It is the architecture that determines what data the model sees, how quickly it responds, and how its decisions can be explained and audited.
-
-The institutions making this investment now are building a decisioning advantage that compounds over time. The ones deferring it are accumulating technical debt that becomes progressively harder to resolve.
-
----
-
-*Vitto Technologies Pvt. Ltd. | hello@vitto.in*
+Deliverable 5 is **`docs/article.md`** (~832 words). Export it into your submission PDF alongside this write-up.
