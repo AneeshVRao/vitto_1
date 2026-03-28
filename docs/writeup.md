@@ -1,8 +1,8 @@
 # Vitto — Submission Write-Up
 
 **Assignment:** Full Stack Intern Assignment — AI-First BFSI Website
-**Submission Date:** [Date]
-**Author:** [Your Name]
+**Submission Date:** March 28, 2026
+**Author:** Aneesh
 
 ---
 

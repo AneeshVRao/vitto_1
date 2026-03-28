@@ -8,11 +8,11 @@ This repository contains the complete Vitto website and API, built as part of th
 
 ## Live URLs
 
-| Service | URL |
-|---|---|
-| Frontend (Vercel) | `https://vitto-frontend.vercel.app` |
-| Backend (Render) | `https://vitto-api.onrender.com` |
-| API Health | `https://vitto-api.onrender.com/health` |
+| Service           | URL                                   |
+| ----------------- | ------------------------------------- |
+| Frontend (Vercel) | `https://vitto-1.vercel.app/`         |
+| Backend (Render)  | `https://vitto-1.onrender.com`        |
+| API Health        | `https://vitto-1.onrender.com/health` |
 
 ---
 
@@ -83,8 +83,8 @@ npm start
 
 **Environment variables (frontend):**
 
-| Variable | Value |
-|---|---|
+| Variable            | Value                |
+| ------------------- | -------------------- |
 | `REACT_APP_API_URL` | Backend API base URL |
 
 ---
@@ -102,14 +102,14 @@ npm run dev
 
 **Environment variables (backend):**
 
-| Variable | Description | Example |
-|---|---|---|
-| `PORT` | Server port | `4000` |
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/vitto` |
-| `MONGO_URI` | MongoDB connection string | `mongodb://localhost:27017/vitto` |
-| `JWT_SECRET` | Long random string for JWT signing | `your-long-random-secret` |
-| `OTP_CONSOLE_LOG` | Print OTP to console (dev only) | `true` |
-| `FRONTEND_URL` | CORS allowed origin | `http://localhost:3000` |
+| Variable          | Description                        | Example                                       |
+| ----------------- | ---------------------------------- | --------------------------------------------- |
+| `PORT`            | Server port                        | `4000`                                        |
+| `DATABASE_URL`    | PostgreSQL connection string       | `postgresql://user:pass@localhost:5432/vitto` |
+| `MONGO_URI`       | MongoDB connection string          | `mongodb://localhost:27017/vitto`             |
+| `JWT_SECRET`      | Long random string for JWT signing | `your-long-random-secret`                     |
+| `OTP_CONSOLE_LOG` | Print OTP to console (dev only)    | `true`                                        |
+| `FRONTEND_URL`    | CORS allowed origin                | `http://localhost:3000`                       |
 
 **Postgres database setup:**
 
@@ -128,13 +128,13 @@ No setup required. The OTP session collection is created automatically. The TTL 
 
 ## API Endpoints
 
-| Method | Path | Auth | Description |
-|---|---|---|---|
-| `POST` | `/api/auth/send-otp` | None | Send OTP to email or phone |
-| `POST` | `/api/auth/verify-otp` | None | Verify OTP, receive JWT |
-| `POST` | `/api/leads` | JWT | Create lead record in Postgres |
-| `GET` | `/api/leads/:id` | JWT | Retrieve lead by ID |
-| `GET` | `/health` | None | Server health check |
+| Method | Path                   | Auth | Description                    |
+| ------ | ---------------------- | ---- | ------------------------------ |
+| `POST` | `/api/auth/send-otp`   | None | Send OTP to email or phone     |
+| `POST` | `/api/auth/verify-otp` | None | Verify OTP, receive JWT        |
+| `POST` | `/api/leads`           | JWT  | Create lead record in Postgres |
+| `GET`  | `/api/leads/:id`       | JWT  | Retrieve lead by ID            |
+| `GET`  | `/health`              | None | Server health check            |
 
 Full request/response examples: see `docs/vitto-api.postman_collection.json` or `docs/curl-commands.sh`.
 
@@ -212,4 +212,4 @@ docs: add postman collection and curl examples
 
 ## Author
 
-Built by [Your Name] for the Vitto Full Stack Intern Assignment.
+Built by Aneesh for the Vitto Full Stack Intern Assignment.
