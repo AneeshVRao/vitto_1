@@ -1,4 +1,4 @@
-﻿# Vitto — AI-Native Credit Infrastructure
+# Vitto — AI-Native Credit Infrastructure
 
 > "This project demonstrates the transition from traditional LOS systems to AI-driven decisioning platforms."
 
@@ -46,46 +46,46 @@ This application is built as a modular monorepo, cleanly separating the client i
 
 ### 1. Backend API
 
-\\\ash
+```bash
 cd backend
 npm install
 cp .env.example .env
-\\\
+```
 
 **Configure .env**:
 Ensure you provide your exact database URIs:
-\\\env
+```env
 PORT=4000
 DATABASE_URL=postgresql://postgres.xxx:password@aws-0-pooler.supabase.com:6543/postgres
 MONGO_URI=mongodb+srv://admin:pass@cluster0.mongodb.net/?retryWrites=true&w=majority
 JWT_SECRET=super_secure_random_string_here
 FRONTEND_URL=http://localhost:3000
-\\\
+```
 
 **Run Server**:
-\\\ash
+```bash
 npm run dev
 # Server spins up on http://localhost:4000
-\\\
+```
 
 ### 2. Frontend Client
 
-\\\ash
+```bash
 cd frontend
 npm install
-\\\
+```
 
 **Configure Environment**:
-Create a \.env.local\ inside \rontend/\
-\\\env
+Create a `.env.local` inside `frontend/`
+```env
 REACT_APP_API_URL=http://localhost:4000
-\\\
+```
 
 **Run Client**:
-\\\ash
+```bash
 npm start
 # Client spins up on http://localhost:3000
-\\\
+```
 
 ---
 
@@ -93,13 +93,13 @@ npm start
 
 | Method | Endpoint | Auth | Purpose |
 | --- | --- | --- | --- |
-| \GET\ | \/health\ | None | Base Ping |
-| \POST\ | \/api/auth/send-otp\ | None | Generates and hashes a cryptographically secure 6-digit pin |
-| \POST\ | \/api/auth/verify-otp\ | None | Compares bcrypt hashes and issues a scoped JWT |
-| \POST\ | \/api/leads\ | Bearer JWT | Captures organizational data to the Postgres cluster |
-| \GET\  | \/api/leads/:id\ | Bearer JWT | Retrieves payload data by UUID key |
+| `GET` | `/health` | None | Base Ping |
+| `POST` | `/api/auth/send-otp` | None | Generates and hashes a cryptographically secure 6-digit pin |
+| `POST` | `/api/auth/verify-otp` | None | Compares bcrypt hashes and issues a scoped JWT |
+| `POST` | `/api/leads` | Bearer JWT | Captures organizational data to the Postgres cluster |
+| `GET`  | `/api/leads/:id` | Bearer JWT | Retrieves payload data by UUID key |
 
-*Refer to \docs/vitto-api.postman_collection.json\ or \docs/curl-commands.sh\ for exact request body schemas.*
+*Refer to `docs/vitto-api.postman_collection.json` or `docs/curl-commands.sh` for exact request body schemas.*
 
 ---
 
