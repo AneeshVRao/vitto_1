@@ -168,8 +168,8 @@ body {
 
 /* Ensure select dropdown options are visible against white browser default background */
 select.vitto-input option {
-  background-color: var(--navy);
-  color: var(--text-primary);
+  background-color: #1A1A2E;
+  color: white;
 }
 
 /* Step indicator */
