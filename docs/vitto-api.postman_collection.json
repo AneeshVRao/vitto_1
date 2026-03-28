@@ -168,9 +168,7 @@
       "request": {
         "method": "GET",
         "url": "{{base_url}}/api/leads/{{lead_id}}",
-        "header": [
-          { "key": "Authorization", "value": "Bearer {{token}}" }
-        ],
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
         "description": "Retrieve a lead record by ID. Uses the {{lead_id}} variable saved in step 3."
       },
       "response": [
