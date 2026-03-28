@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "Vitto API",
+    "description": "Complete API collection for Vitto sign-up flow and lead capture. Run in order: send-otp → verify-otp → create-lead → get-lead.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:4000", "type": "string" },
+    { "key": "token", "value": "", "type": "string" },
+    { "key": "lead_id", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/health",
+        "description": "Verify the server is running."
+      },
+      "response": [
+        {
+          "name": "200 OK",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"status\": \"ok\",\n  \"timestamp\": \"2025-01-15T10:00:00.000Z\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "1. Send OTP (Email)",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/auth/send-otp",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"cro@yourbank.com\"\n}"
+        },
+        "description": "Send OTP to an email address. In development, the OTP is printed to the server console and also returned in _devOtp (never in production)."
+      },
+      "response": [
+        {
+          "name": "200 – OTP Sent",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"OTP sent to email cro@yourbank.com\",\n  \"_devOtp\": \"847392\"\n}"
+        },
+        {
+          "name": "400 – Invalid email",
+          "status": "Bad Request",
+          "code": 400,
+          "body": "{\n  \"error\": \"Invalid email address\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "1b. Send OTP (Phone)",
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/auth/send-otp",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"phone\": \"+919876543210\"\n}"
+        },
+        "description": "Send OTP to a mobile number."
+      }
+    },
+    {
+      "name": "2. Verify OTP",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const data = pm.response.json();",
+              "if (data.token) {",
+              "  pm.collectionVariables.set('token', data.token);",
+              "  console.log('JWT token saved to collection variable');",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/auth/verify-otp",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"cro@yourbank.com\",\n  \"otp\": \"847392\"\n}"
+        },
+        "description": "Verify the OTP. On success, issues a JWT (30-minute expiry) saved automatically to the {{token}} collection variable."
+      },
+      "response": [
+        {
+          "name": "200 – Verified",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"message\": \"OTP verified\",\n  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n}"
+        },
+        {
+          "name": "400 – Wrong OTP",
+          "status": "Bad Request",
+          "code": 400,
+          "body": "{\n  \"error\": \"Incorrect OTP. Please check and try again.\"\n}"
+        },
+        {
+          "name": "400 – Expired",
+          "status": "Bad Request",
+          "code": 400,
+          "body": "{\n  \"error\": \"OTP expired or not found. Please request a new one.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "3. Create Lead",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const data = pm.response.json();",
+              "if (data.id) {",
+              "  pm.collectionVariables.set('lead_id', String(data.id));",
+              "  console.log('Lead ID saved:', data.id);",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "url": "{{base_url}}/api/leads",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"institution_name\": \"Finova Capital Pvt. Ltd.\",\n  \"institution_type\": \"NBFC\",\n  \"city\": \"Mumbai\",\n  \"loan_book_size\": \"₹200–500 Cr\",\n  \"email\": \"cro@yourbank.com\"\n}"
+        },
+        "description": "Creates a lead record in PostgreSQL. Requires a valid JWT from step 2. The lead ID is auto-saved to {{lead_id}}.\n\nValid institution_type values: Bank | NBFC | MFI | HFC | Fintech Lender\nValid loan_book_size values: < ₹50 Cr | ₹50–200 Cr | ₹200–500 Cr | ₹500 Cr – ₹2,000 Cr | > ₹2,000 Cr"
+      },
+      "response": [
+        {
+          "name": "201 – Lead Created",
+          "status": "Created",
+          "code": 201,
+          "body": "{\n  \"id\": 42,\n  \"institution_name\": \"Finova Capital Pvt. Ltd.\",\n  \"status\": \"new\",\n  \"created_at\": \"2025-01-15T10:05:32.123Z\",\n  \"message\": \"Lead submitted. Our team will reach out within 24 hours.\"\n}"
+        },
+        {
+          "name": "400 – Validation Error",
+          "status": "Bad Request",
+          "code": 400,
+          "body": "{\n  \"error\": \"Institution name is required\"\n}"
+        },
+        {
+          "name": "401 – Missing Token",
+          "status": "Unauthorized",
+          "code": 401,
+          "body": "{\n  \"error\": \"Missing authorization token\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "4. Get Lead by ID",
+      "request": {
+        "method": "GET",
+        "url": "{{base_url}}/api/leads/{{lead_id}}",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "description": "Retrieve a lead record by ID. Uses the {{lead_id}} variable saved in step 3."
+      },
+      "response": [
+        {
+          "name": "200 – Lead Found",
+          "status": "OK",
+          "code": 200,
+          "body": "{\n  \"id\": 42,\n  \"email\": \"cro@yourbank.com\",\n  \"phone\": null,\n  \"institution_name\": \"Finova Capital Pvt. Ltd.\",\n  \"institution_type\": \"NBFC\",\n  \"city\": \"Mumbai\",\n  \"loan_book_size\": \"₹200–500 Cr\",\n  \"status\": \"new\",\n  \"created_at\": \"2025-01-15T10:05:32.123Z\"\n}"
+        },
+        {
+          "name": "404 – Not Found",
+          "status": "Not Found",
+          "code": 404,
+          "body": "{\n  \"error\": \"Lead not found\"\n}"
+        }
+      ]
+    }
+  ]
+}
