@@ -36,14 +36,14 @@
           "mode": "raw",
           "raw": "{\n  \"email\": \"cro@yourbank.com\"\n}"
         },
-        "description": "Send OTP to an email address. In development, the OTP is printed to the server console and also returned in _devOtp (never in production)."
+        "description": "Send OTP to an email address. The OTP is delivered via mock provider and logged to the server console."
       },
       "response": [
         {
           "name": "200 – OTP Sent",
           "status": "OK",
           "code": 200,
-          "body": "{\n  \"message\": \"OTP sent to email cro@yourbank.com\",\n  \"_devOtp\": \"847392\"\n}"
+          "body": "{\n  \"message\": \"OTP sent to email cro@yourbank.com\"\n}"
         },
         {
           "name": "400 – Invalid email",
